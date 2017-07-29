@@ -1,0 +1,31 @@
+<div class="container">
+    
+    <div class="row">
+     <!--name:string parent_category_id:integer slug:string-->
+     
+            <%= form_with model:@category,local:true do |form| %>
+            <div class="input-field col s12">
+                <%= form.text_field :name %>
+                <label for="name">カテゴリー名</label>
+            </div>
+            
+            <div class="input-field col s12">
+                 <%= form.collection_select :parent_category_id, Category.where.not( id:[0] ), :id, :name,:prompt => true %>
+                <label for="body">カテゴリー</label>
+            </div> 
+           
+            <div class="input-field col s12">
+                <%= form.text_field :slug%>
+                <label for="body">SLUG</label>
+            </div>           
+            <%= form.submit "登録する", :class=>"waves-effect waves-light btn right" %>
+            <% end %>           
+     
+        
+    </div>
+</div>
+<script>
+ $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

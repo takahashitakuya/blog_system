@@ -1,0 +1,84 @@
+
+<div class="container">
+ 
+    <div class="row">
+        <div class="col s12">
+            <%= link_to new_post_path,:class=>"waves-effect waves-light btn right" do%>
+            <i class="material-icons left">mode_edit</i>記事を投稿
+            <% end %>
+        </div>
+    </div>
+    
+<!-- 追加 START -->
+
+
+
+
+
+
+<div class="row">
+<!-- 追加 END -->  
+
+
+    <div class="row">
+        <div id="main-col" class="col m8">
+             <section class="posts">
+              <% @posts.each do |post| %>
+                <article class="post-item clearfix">
+                    <header class="post-header">
+                        <h2 class="post-title">
+                        <%= link_to post.title,post_path(post) %>
+                        </h2>                     
+                        <div class="meta">
+                             <i class="material-icons tiny">date_range</i>
+                            <%= post.created_at.strftime("%Y/%m/%d %H:%M")%>
+                            <% if post.category_id = nil %>
+                             <i class="material-icons tiny">folder</i>
+                             <%= Category.find(post.category_id).name %>
+                            <% end %>
+                        </div>
+                    </header>
+                    
+                    <p class="post-except">
+                        <%= strip_tags(post.body).truncate(250) %>
+                    </p>
+                     <%= link_to post_path(post),:class=>'waves-effect waves-light btn right' do %>
+                     <i class="material-icons right">navigate_next</i>Read More
+                     <% end %>
+                </article>                
+            <% end %>  
+            <%= paginate @posts %>
+            </sectioon>           
+        </div>
+        <div id="side-col" class="col m4">
+            
+   <nav id="search-form">
+    <div class="nav-wrapper">
+      <%= search_form_for @q do |f| %>
+        <div class="input-field">
+          <%= f.search_field :title_or_body_cont, placeholder: "タイトルか本文を検索", class: "form-control" %>
+          <i class="material-icons">close</i>
+        </div>
+      <% end %>
+    </div>
+  </nav>
+
+             <div class="thumbnail">
+               <%= image_tag Author.first.image_url, alt: "著者イメージ" %>
+               <div class="caption">
+                 <h3>著者名：<%= Author.first.name %></h3>
+                 <p>詳細：<%= Author.first.description %></p>
+               </div>
+             </div>
+             <div class="list-group">
+               <% @new_posts.each do |post| %>
+               <%= link_to post.title, post, class: "list-group-item"  %>
+               <% end %>
+             </div>
+     
+        </div>
+</div>
+
+        
+        
+        

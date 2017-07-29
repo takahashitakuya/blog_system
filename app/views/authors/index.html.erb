@@ -1,0 +1,23 @@
+
+<div class="container">
+    <div class="row">
+           
+        <% @authors.each do |author| %>
+        <div class="col s6 m4">
+            <div class="card">
+                <div class="card-image">
+                    <img src="<%= author.image_url %>">
+                </div>
+                <div class="card-content">
+                    <p class="card-title"><%= author.name %></p>
+                    <p><%= author.description %></p>
+                </div>
+                <div class="card-action">
+                    <%= link_to 'this is a link',author_path(author) %>
+                </div>            
+            </div>            
+        </div>
+        <% end %>
+       
+    </div>
+</div>
